@@ -19,7 +19,7 @@ Colaborador::Colaborador( string nombre, int id, int celular, string email, carg
 
 void Colaborador::llenarColaborador(){
     string nombre, email;
-    int celular, id;
+    int celular;
     cargo_enum cargo;
     afil_enum afiliacion;
     int opc = 0;
@@ -49,7 +49,7 @@ void Colaborador::llenarColaborador(){
                 opc = 0;
             }
         }
-    }while( opc = 0 )
+    }while( opc == 0 )
 
     do{
         cout << "Interno(1) o Externo(2): ";
@@ -64,10 +64,9 @@ void Colaborador::llenarColaborador(){
                 opc = 0;
             }
         }
-    }while( opc = 0 )
+    }while( opc == 0 )
 
     this->nombre = nombre;
-    this->id = id;
     this->celular = celular;
     this->email = email;
     this->cargo = cargo;

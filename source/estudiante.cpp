@@ -11,7 +11,7 @@ Estudiante::Estudiante( string nombre, int id, int celular, string email ){
     this->email = email;
 }
 
-void Estudiante::llenarEstudiante( int id ){
+void Estudiante::llenarEstudiante(){
     string nombre, email;
     int celular;
 
@@ -28,7 +28,6 @@ void Estudiante::llenarEstudiante( int id ){
     cin >> email;
 
     this->nombre = nombre;
-    this->id = id;
     this->celular = celular;
     this->email = email;
 
