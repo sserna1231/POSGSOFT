@@ -6,18 +6,21 @@
 #include "colaborador.h"
 #include "estudiante.h"
 #include "evaluacion.h"
+using std::list;
 
-enum class Tipo
+constexpr int max_words_obsfinal = 200;
+
+enum class Tipo: string
 {
     Aplicado, Investigacion
 };
 
-enum class Aprobacion
+enum class Aprobacion: string
 {
     Aprobado, Pendiente, Reprobado
 };
 
-enum class Diligencia
+enum class Diligencia: string
 {
     Abierto, Cerrado
 };
@@ -38,16 +41,21 @@ private:
 
 public:
     Acta();
-    Acta llenarActa();
+    Acta(int);
+    void llenarActa();
     void initCriterios(lista<Criterios>&);
     Criterio buscarCriterio(int);
-    void modificarActa();
     void evaluarActa();
+    void setEstudiante(Estudiante);
+    void setColaborador(Colaborador);
+    void setPeriodo();
+    void setTitulo();
+    void setFecha();
     void setNotaFinal();
-    void setAprobacion();
     void setObsFinal();
+    void setAprobacion();
     void setDiligencia();
-    int getDiligencia();
+    Diligencia getDiligencia();
     //void guardarActa();
     void mostrarActa();
 };

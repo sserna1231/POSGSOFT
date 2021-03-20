@@ -25,6 +25,8 @@ public:
     Estudiante buscarEstudiante(int);
     Colaborador buscarColab(int);
     list<Criterios>& getRefList();
+    int menuActa();
+    void modificarActa();
     void mostrarActas();
     void mostrarJurados();
     void mostrarCriterios();

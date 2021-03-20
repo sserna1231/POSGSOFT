@@ -2,6 +2,14 @@
 #define EVAL_H
 #include <string>
 
+/*Nota máxima y mínima asignable para puntuación en el
+sistema educativo Colombiano*/
+constexpr float max_grade = 5.0;
+constexpr float min_grade = 0.0;
+constexpr float limit_grade = 3.5; //Nota mínima para aprobar
+constexpr float empty_grade = - 1.0;
+constexpr int num_jurados = 2;
+
 typedef struct Evaluacion Evaluacion;
 
 struct Evaluacion
@@ -19,10 +27,12 @@ private:
     //std::string descripcion; Creo que falta
 public:
     Criterio();
+    int menuModificables();
     void evaluarCriterio();
     void setNotaJ1();
     void setNotaJ2();
     void setNota();
+    int getID();
     float getNota();
 };
 
