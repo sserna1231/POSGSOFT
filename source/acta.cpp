@@ -22,6 +22,13 @@ void Acta::llenarActa()
 
     this->setPeriodo();
 
+    std::string dia, mes, year;
+    std::cout << "Ingrese la fecha de sustentacion.\n";
+    std::cout << "Dia: "; std::cin >> dia;
+    std::cout << "Mes: "; std::cin >> mes;
+    std::cout << "Anio: "; std::cin >> year;    
+    this->fecha = dia + '/' + mes + '/' + year;
+
     int opc;
     do{
         cout << "Trabajo Aplicado (1) o Investigativo (2): ";
@@ -125,21 +132,6 @@ void Acta::setTitulo()
     std::cout << "Ingrese el titulo del trabajo: ";
     std::cin.ignore();
     getline(std::cin >> std::ws, this->titulo);
-}
-
-void Acta::setFecha()
-{
-    std::string fecha;
-    std::string dia, mes, ano;
-
-    time_t now = time(0);
-    tm* time = localtime( &now );
-    dia = std::to_string( time->tm_mday );
-    mes = std::to_string( time->tm_mon + 1 );
-    ano = std::to_string( time->tm_year );
-    fecha = dia + "/" + mes + "/" + ano;  
-
-    this->fecha = fecha;
 }
 
 void setNotaFinal()

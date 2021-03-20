@@ -50,7 +50,6 @@ public:
     void setColaborador(Colaborador);
     void setPeriodo();
     void setTitulo();
-    void setFecha();
     void setNotaFinal();
     void setObsFinal();
     void setAprobacion();
