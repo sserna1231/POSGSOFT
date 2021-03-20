@@ -22,12 +22,7 @@ void Acta::llenarActa()
 
     this->setPeriodo();
 
-    std::string dia, mes, year;
-    std::cout << "Ingrese la fecha de sustentacion.\n";
-    std::cout << "Dia: "; std::cin >> dia;
-    std::cout << "Mes: "; std::cin >> mes;
-    std::cout << "Anio: "; std::cin >> year;    
-    this->fecha = dia + '/' + mes + '/' + year;
+    this->setFecha();
 
     int opc;
     do{
@@ -49,7 +44,7 @@ void Acta::initCriterios(list<Criterios>& criterios)
     this->listaCriterios.splice(listaCriterios.begin(), criterios);
 }
 
-Criterio Acta::buscarCriterio(int id)
+Criterio& Acta::buscarCriterio(int id)
 {
     for(list<Criterio>::iterator it = listaCriterios.begin(); it != listaCriterios.end(); it++)
     {
@@ -221,4 +216,13 @@ void mostrarActa()
 
     std::cout << "Estado: " << this->aprobacion << std::endl;
     std::cout << "Diligencia: " << this->diligencia << std::endl;
+}
+
+void Acta::setFecha(){
+    std::string dia, mes, year;
+    std::cout << "Ingrese la fecha de sustentacion.\n";
+    std::cout << "Dia: "; std::cin >> dia;
+    std::cout << "Mes: "; std::cin >> mes;
+    std::cout << "Anio: "; std::cin >> year;    
+    this->fecha = dia + '/' + mes + '/' + year;
 }

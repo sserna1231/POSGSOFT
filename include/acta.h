@@ -44,7 +44,7 @@ public:
     Acta(int);
     void llenarActa();
     void initCriterios(lista<Criterios>&);
-    Criterio buscarCriterio(int);
+    Criterio& buscarCriterio(int);
     void evaluarActa();
     void setEstudiante(Estudiante);
     void setColaborador(Colaborador);
@@ -54,6 +54,7 @@ public:
     void setObsFinal();
     void setAprobacion();
     void setDiligencia();
+    void setFecha();
     Diligencia getDiligencia();
     //void guardarActa();
     void mostrarActa();
