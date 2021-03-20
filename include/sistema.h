@@ -8,6 +8,10 @@
 #include "estudiante.h"
 #include "evaluacion.h"
 
+using std::list;
+using std::cout;
+using std::cin;
+
 class Sistema
 {
 private:
@@ -22,8 +26,9 @@ public:
     void addActa(Acta);
     void addEstudiante(Estudiante);
     void addColab(Colaborador);
-    Estudiante buscarEstudiante(int);
-    Colaborador buscarColab(int);
+    Estudiante& buscarEstudiante(int);
+    Colaborador& buscarColab(int);
+    Acta& buscarActa(int);
     list<Criterios>& getRefList();
     int menuActa();
     void modificarActa();
@@ -31,6 +36,8 @@ public:
     void mostrarJurados();
     void mostrarCriterios();
     void EliminarActa();
+    void EliminarEstudiante();
+    void EliminarColaborador();
 };
 
 #endif
