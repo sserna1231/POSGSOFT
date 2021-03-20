@@ -1,4 +1,4 @@
-#include "estudiante.h"
+#include "..//include//estudiante.h"
 
 Estudiante::Estudiante( int id ){
     this->id = id;
@@ -45,6 +45,50 @@ void Estudiante::mostrarEstudiante(){
     cout << endl;
 }
 
-int Colaborador::getId(){
+int Estudiante::getId(){
     return this->id;
+}
+
+void Estudiante::modificarEstudiante(){
+    string nombre, email;
+    int celular;
+    int opc;
+    do{
+        opc = this->mostrarOpciones();
+        switch( opc ){
+            case 1:
+                cout << "Ingrese el nombre del estudiante: ";
+                cin.ignore();
+                getline( cin, nombre );
+                this->nombre = nombre;
+                break;
+            case 2:
+                cout << "Telefono celular: ";
+                cin >> celular;
+                this->celular = celular;
+                break;
+            case 3:
+                cout << "Ingrese el email: ";
+                cin >> email;
+                break;
+            case 0:
+                break;
+            default:
+                cout << "Opcion no valida\n";
+                break;
+        }
+    }while( opc != 0 );
+}
+
+int Estudiante::mostrarOpciones(){
+    int opc;
+    cout << "\nASPECTO A MODIFICAR\n";
+    cout << "1. Nombre\n";
+    cout << "2. Celular\n";
+    cout << "3. Email\n";
+    cout << "0. Salir\n";
+    cout << "> ";
+    cin >> opc;
+    cout << endl;
+    return opc;
 }

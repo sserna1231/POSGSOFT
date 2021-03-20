@@ -38,6 +38,8 @@ class Colaborador{
         int getDirigidos();
         int getEvaluados();
         afil_enum getAfil();
+        void modificarColaborador();
+        int mostrarOpciones();
 }
 
 #endif

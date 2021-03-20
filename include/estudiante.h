@@ -20,6 +20,8 @@ class Estudiante{
         void llenarEstudiante();
         void mostrarEstudiante();
         int getId();
+        void modificarEstudiante();
+        int mostrarOpciones();
 }
 
 #endif
