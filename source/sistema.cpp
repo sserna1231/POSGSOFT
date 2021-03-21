@@ -1,5 +1,12 @@
 #include "sistema.h"
 
+Sistema::Sistema(){
+    cout << "Ingrese el nombre del sistema: "
+    cin >> this->nombre;
+    actasCreadas = estudiantesCreados = colabsCreados = 0;
+    cout << endl;
+}
+
 int Sistema::menuActa()
 {
     int opc;
@@ -28,7 +35,11 @@ void Sistema::modificarActa()
     cout << "Ingrese el ID del acta: ";
     cin >> id;
     cout << endl;
-    Acta& acta = this->buscarActa( id );   
+    Acta& acta = this->buscarActa( id );
+    if( acta.getDiligencia() == Diligencia::Cerrado ){
+        cout << "Acta cerrada: no puede modificarse" << endl;
+        return;
+    }  
     Estudiante& estudiante;
     Colaborador& colaborador;
     Criterio& criterio;
@@ -82,7 +93,7 @@ void Sistema::modificarActa()
                     break;
                 }
                 colaborador.modificarColaborador();
-                acta.setColaborador( *colaborador );
+                acta.setColaborador( colaborador );
                 break;
             case 8:
             case 10:
@@ -94,8 +105,7 @@ void Sistema::modificarActa()
                     std::cout << "Colaborador inexistente.\n";
                     break;
                 }
-                colaborador.modificarColaborador();
-                acta.setColaborador( *colaborador );
+                acta.setColaborador( colaborador );
                 break;
             case 11:
                 std::cout << "Ingrese el id del criterio: ";
@@ -119,6 +129,7 @@ void Sistema::modificarActa()
 
 void Sistema::addActa( Acta acta ){
     this->listaActas.push_back( acta );
+    this->actasCreadas++;
 }
 
 void Sistema::addEstudiante( Estudiante e ){
@@ -174,7 +185,9 @@ void Sistema::mostrarActas(){
 void Sistema::mostrarJurados(){
     list<Colaborador>::iterator it;
     for( it = this->listaColab.begin(); it != this->listaColab.end(); it++ ){
-        it->mostrarColaborador();
+        if( it->evaluados > 0 ){
+            it->mostrarColaborador();
+        }
         cout << endl;
     }
 }
@@ -187,17 +200,21 @@ void Sistema::mostrarCriterios(){
     }
 }
 
-void Sistema::EliminarActa(){
+void Sistema::EliminarActa( int id ){
     list<Acta>::iterator it;
     for( it = this->listaActas.begin(); it != this->listaActas.end(); it++ ){
         if( it->id == id ){
+            if( it->getDiligencia() == Diligencia::Cerrado ){
+                cout << "Acta cerrada: no puede eliminarse" << endl;
+                return;
+            }
             this->listaActas.erase( it );
             return;
         }
     }
 }
 
-void Sistema::EliminarEstudiante(){
+void Sistema::EliminarEstudiante( int id ){
     list<Estudiante>::iterator it;
     for( it = this->listaEstudiante.begin(); it != this->listaEstudiante.end(); it++ ){
         if( it->id == id ){
@@ -207,7 +224,7 @@ void Sistema::EliminarEstudiante(){
     }
 }
 
-void Sistema::EliminarColaborador(){
+void Sistema::EliminarColaborador( int id ){
     list<Colaborador>::iterator it;
     for( it = this->listaColab.begin(); it != this->listaColab.end(); it++ ){
         if( it->id == id ){
@@ -215,4 +232,28 @@ void Sistema::EliminarColaborador(){
             return;
         }
     }
+}
+
+int Sistema::getActasCreadas(){
+    return this->actasCreadas;
+}
+    
+int Sistema::getEstudiantesCreados(){
+    return this->estudiantesCreados;
+}
+
+int Sistema::getColabsCreados(){
+    return this->colabsCreados;
+}
+
+void setActasCreadas( int ac ){
+    this->actasCreadas = ac;
+}
+
+void setEstudiantesCreados( int ec ){
+    this->estudiantesCreados = ec;
+}
+
+void setColabsCreados( int cc ){
+    this->colabsCreados = cc;
 }

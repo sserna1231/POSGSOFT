@@ -11,33 +11,42 @@
 using std::list;
 using std::cout;
 using std::cin;
+using std::endl;
+using std::string;
 
 class Sistema
 {
 private:
     std::string nombre;
-    int actasTotales, estudiantesTotales, colabsTotales;
+    int actasCreadas, estudiantesCreados, colabsCreados;
     std::list<Acta> listaActas;
     std::list<Colaborador> listaColab;
     std::list<Criterio> listaCriterios;
     std::list<Estudiante> listaEstudiante;
 
 public:
-    void addActa(Acta);
-    void addEstudiante(Estudiante);
-    void addColab(Colaborador);
-    Estudiante& buscarEstudiante(int);
-    Colaborador& buscarColab(int);
-    Acta& buscarActa(int);
+    Sistema();
+    void addActa( Acta );
+    void addEstudiante( Estudiante );
+    void addColab( Colaborador );
+    Estudiante& buscarEstudiante( int );
+    Colaborador& buscarColab( int );
+    Acta& buscarActa( int );
     list<Criterios>& getRefList();
     int menuActa();
     void modificarActa();
     void mostrarActas();
     void mostrarJurados();
     void mostrarCriterios();
-    void EliminarActa();
-    void EliminarEstudiante();
-    void EliminarColaborador();
+    void EliminarActa( int );
+    void EliminarEstudiante( int );
+    void EliminarColaborador( int );
+    int getActasCreadas();
+    int getEstudiantesCreados();
+    int getColabsCreados();
+    void setActasCreadas( int );
+    void setEstudiantesCreados( int );
+    void setColabsCreados( int );
 };
 
 #endif
