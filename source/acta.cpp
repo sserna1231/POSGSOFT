@@ -4,14 +4,14 @@
 
 Acta::Acta()
 {
-    this->notaFinal = min_grade;
+    this->notaFinal = empty_grade;
     this->aprobacion = Aprobacion::Pendiente;
     this->diligencia = Diligencia::Abierto;
 }
 
 Acta::Acta(int id)
 {
-    this->notaFinal = min_grade;
+    this->notaFinal = empty_grade;
     this->aprobacion = Aprobacion::Pendiente;
     this->diligencia = Diligencia::Abierto;
 }
@@ -77,7 +77,7 @@ void Acta::setEstudiante(Estudiante e)
     this->autor = e;
 }
 
-void Acta::setColaborador(Colaborador c)
+void Acta::setColaborador(Colaborador& c)
 {
     int opc;
     do{
@@ -94,15 +94,25 @@ void Acta::setColaborador(Colaborador c)
         switch(opc){
             case 1:
                 this->director = c;
+                c.setDirigidos( c.getDirigidos() + 1 );
+                c.setCargo( cargo_enum::DIRECTOR );
                 break;
             case 2:
                 this->codirector = c;
+                c.setDirigidos( c.getDirigidos() + 1 );
+                c.setCargo( cargo_enum::DIRECTOR );
                 break;
             case 3:
                 this->jurado1 = c;
+                c.setEvaluados( c.getEvaluados() + 1 );
+                c.addTrabajoEval( this->id, this->titulo );
+                c.setCargo( cargo_enum::JURADO );
                 break;
             case 4:
                 this->jurado2 = c;
+                c.setEvaluados( c.getEvaluados() + 1 );
+                c.addTrabajoEval( this->id, this->titulo );
+                c.setCargo( cargo_enum::JURADO );
                 break;
             case 0:
                 break;
@@ -129,7 +139,7 @@ void Acta::setTitulo()
     getline(std::cin >> std::ws, this->titulo);
 }
 
-void setNotaFinal()
+void Acta::setNotaFinal()
 {
     for(list<Criterio>::iterator it = listaCriterios.begin(); it != listaCriterios.end(); it++)
     {
@@ -137,7 +147,7 @@ void setNotaFinal()
     }
 }
 
-void setAprobacion()
+void Acta::setAprobacion()
 {
     if(this->notaFinal == empty_grade) this->aprobacion = Aprobacion::Pendiente;
     else if(this->notaFinal >= min_grade && this->notaFinal <= limit_grade)
@@ -145,7 +155,7 @@ void setAprobacion()
     else this->aprobacion = Aprobacion::Aprobado;
 }
 
-void setDiligencia()
+void Acta::setDiligencia()
 {
     int opc;
     do{
@@ -189,12 +199,20 @@ void Acta::setObsFinal()
     } while(num_words > max_words_obsfinal);
 }
 
-Diligencia getDiligencia()
+Diligencia Acta::getDiligencia()
 {
     return this->diligencia;
 }
 
-void mostrarActa()
+Aprobacion Acta::getAprobacion(){
+    return this->aprobacion;
+}
+
+string Acta::getTitulo(){
+    return this->titulo;
+}
+
+void Acta::mostrarActa()
 {
     std::cout << "\n===============================\n";
     std::cout << "ID ACTA: " << this->id << std::endl;
@@ -214,8 +232,7 @@ void mostrarActa()
     this->jurado1.mostarColaborador();
     this->jurado2.mostarColaborador();
 
-    std::cout << "Estado: " << this->aprobacion << std::endl;
-    std::cout << "Diligencia: " << this->diligencia << std::endl;
+    this->mostrarEstado();
 }
 
 void Acta::setFecha(){
@@ -225,4 +242,19 @@ void Acta::setFecha(){
     std::cout << "Mes: "; std::cin >> mes;
     std::cout << "Anio: "; std::cin >> year;    
     this->fecha = dia + '/' + mes + '/' + year;
+}
+
+void Acta::mostrarEstado(){
+    cout << "Estado: " << aprobacion << endl;
+    cout << "Diligencia: " << diligencia << endl;
+    cout << "Nota final: ";
+    if( notaFinal == empty_grade ){
+        cout << "Faltan criterios por evaluar" << endl;
+    }else{
+        cout << notaFinal << endl;
+    }
+}
+
+void Acta::setId( int id ){
+    this->id = id;
 }

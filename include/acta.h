@@ -7,6 +7,9 @@
 #include "estudiante.h"
 #include "evaluacion.h"
 using std::list;
+using std::cout;
+using std::cin;
+using std::endl;
 
 constexpr int max_words_obsfinal = 200;
 
@@ -47,7 +50,7 @@ public:
     Criterio& buscarCriterio(int);
     void evaluarActa();
     void setEstudiante(Estudiante);
-    void setColaborador(Colaborador);
+    void setColaborador(Colaborador&);
     void setPeriodo();
     void setTitulo();
     void setNotaFinal();
@@ -56,8 +59,12 @@ public:
     void setDiligencia();
     void setFecha();
     Diligencia getDiligencia();
+    Aprobacion getAprobacion();
+    string getTitulo();
     //void guardarActa();
     void mostrarActa();
+    void mostrarEstado();
+    void setId( int );
 };
 
 #endif
