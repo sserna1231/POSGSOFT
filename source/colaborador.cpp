@@ -1,4 +1,4 @@
-#include "..//include//colaborador.h"
+#include "colaborador.h"
 
 Colaborador::Colaborador( int id ){
     this->id = id;
@@ -37,21 +37,6 @@ void Colaborador::llenarColaborador(){
     cin >> email;
 
     do{
-        cout << "Jurado(1) o Profesor(2): ";
-        cin >> opc;
-        if( opc == 1 ){
-            cargo = cargo_enum::JURADO;
-        }else{
-            if( opc == 2 ){
-                cargo = cargo_enum::PROFESOR;
-            }else{
-                cout << "Opcion no valida" << endl;
-                opc = 0;
-            }
-        }
-    }while( opc == 0 );
-
-    do{
         cout << "Interno(1) o Externo(2): ";
         cin >> opc;
         if( opc == 1 ){
@@ -64,7 +49,7 @@ void Colaborador::llenarColaborador(){
                 opc = 0;
             }
         }
-    }while( opc == 0 );
+    }while( opc != 0 );
 
     this->nombre = nombre;
     this->celular = celular;
@@ -109,6 +94,16 @@ void Colaborador::setDirigidos( int dirigidos ){
 
 void Colaborador::setEvaluados( int evaluados ){
     this->evaluados = evaluados;
+}
+
+void setCargo( cargo_enum cargo ){
+    this->cargo = cargo;
+}
+
+void Colaborador::addTrabajoEval( int id, string titulo ){
+    tuple<int, string> trabajoEval;
+    trabajoEval = std::make_tuple( id, string );
+    this->trabajos.push_back( trabajoEval );
 }
 
 int Colaborador::getId(){
@@ -164,7 +159,7 @@ void Colaborador::modificarColaborador(){
                             op = 0;
                         }
                     }
-                }while( op == 0 );
+                }while( op != 0 );
                 break;
             case 5:
                 do{
@@ -180,7 +175,7 @@ void Colaborador::modificarColaborador(){
                             op = 0;
                         }
                     }
-                }while( op == 0 );
+                }while( op != 0 );
                 break;
             case 0:
                 break;
@@ -204,4 +199,12 @@ int Colaborador::mostrarOpciones(){
     cin >> opc;
     cout << endl;
     return opc;
+}
+
+void Colaborador::mostrarTrabajosEval(){
+    list<tuple<int, string>>::iterator it;
+    for( it = trabajos.begin(); it != trabajos.end(); it++ ){
+        cout << "Id: " << std::get<0>( *it ) << "\tTitulo: " << std::get<1>( *it ) << endl;
+    }
+    cout << endl;
 }
