@@ -36,6 +36,11 @@ void Sistema::modificarActa()
     cin >> id;
     cout << endl;
     Acta& acta = this->buscarActa( id );
+    if( id != acta.getId() ){
+        cout << "Acta no registrado\n";
+        cout << "Debe crearla primero\n";
+        return;
+    }
     if( acta.getDiligencia() == Diligencia::Cerrado ){
         cout << "Acta cerrada: no puede modificarse" << endl;
         return;
@@ -134,10 +139,12 @@ void Sistema::addActa( Acta acta ){
 
 void Sistema::addEstudiante( Estudiante e ){
     this->listaEstudiante.push_back( e );
+    this->estudiantesCreados++;
 }
 
 void Sistema::addColab( Colaborador colab ){
     this->listaColab.push_back( colab );
+    this->colabsCreados++;
 }
 
 Estudiante& Sistema::buscarEstudiante( int id ){
@@ -175,6 +182,10 @@ list<Criterios>& Sistema::getRefList(){
 }
 
 void Sistema::mostrarActas(){
+    if( this->listaActas.size() == 0 ){
+        cout << "No hay actas en el sistema\n";
+        return;
+    }
     list<Acta>::iterator it;
     for( it = this->listaActas.begin(); it != this->listaActas.end(); it++ ){
         it->mostrarActa();
