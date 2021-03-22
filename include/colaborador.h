@@ -34,10 +34,12 @@ class Colaborador{
         
 
     public:
+        Colaborador();
         Colaborador(int);
         Colaborador( string, int, int, string, cargo_enum, afil_enum );
         void llenarColaborador();
         void mostrarColaborador();
+        void setId( int );
         void setDirigidos( int );
         void setEvaluados( int );
         void setCargo( cargo_enum );
@@ -45,6 +47,7 @@ class Colaborador{
         int getId();
         int getDirigidos();
         int getEvaluados();
+        string getNombre();
         afil_enum getAfil();
         void modificarColaborador();
         int mostrarOpciones();

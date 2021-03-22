@@ -1,5 +1,8 @@
 #include "colaborador.h"
 
+Colaborador::Colaborador(){
+}
+
 Colaborador::Colaborador( int id ){
     this->id = id;
     this->dirigidos = 0;
@@ -88,6 +91,10 @@ void Colaborador::mostrarColaborador(){
     cout << endl;
 }
 
+void Colaborador::setId( int id ){
+    this->id = id;
+}
+
 void Colaborador::setDirigidos( int dirigidos ){
     this->dirigidos = dirigidos;
 }
@@ -116,6 +123,10 @@ int Colaborador::getDirigidos(){
 
 int Colaborador::getEvaluados(){
     return this->evaluados;
+}
+
+string Colaborador::getNombre(){
+    return this->nombre;
 }
 
 afil_enum Colaborador::getAfil(){
