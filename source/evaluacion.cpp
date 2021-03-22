@@ -1,14 +1,10 @@
 #include <iostream>
 #include "evaluacion.h"
 
-/*Nota máxima y mínima asignable para puntuación en el
-sistema educativo Colombiano*/
-constexpr float max_grade = 5.0;
-constexpr float min_grade = 0.0;
-constexpr int num_jurados = 2;
-constexpr float empty_grade = - 1.0;
-
-Criterio::Criterio(){};
+Criterio::Criterio()
+{
+    this->nota = empty_grade;
+};
 
 void Criterio::evaluarCriterio()
 {
@@ -26,6 +22,7 @@ void Criterio::evaluarCriterio()
         default:
             std::cout << "N° Jurado invalido.\nIntente de nuevo\n\n";
     }
+    setNota();
 }
 
 /*Para nuestra aplicación, asumiremos que la relación entre el número de palabras
@@ -92,8 +89,12 @@ void Criterio::setNotaJ2()
 
 void Criterio::setNota()
 {
-    if(notaj1.nota == empty_grade || notaj2.nota == empty_grade){
-        std::cout << "Notas incompletas.\n";
+    if(notaj1.nota == empty_grade){
+        std::cout << "Falta nota del jurado 1.\n";
+        return;
+    }
+    if(notaj2.nota == empty_grade){
+        std::cout << "Falta nota del jurado 2.\n";
         return;
     }
     this->nota = ponderacion * (notaj1.nota + notaj2.nota) / (float) num_jurados;
@@ -101,7 +102,16 @@ void Criterio::setNota()
 
 float Criterio::getNota()
 {
+    if(notaj1.nota == empty_grade)
+        std::cout << "Falta nota del jurado 1.\n";
+    if(notaj2.nota == empty_grade)
+        std::cout << "Falta nota del jurado 2.\n";
     return this->nota;
+}
+
+int Criterio::getID()
+{
+    return this->id;
 }
 
 int countWords(const std::string& str)
@@ -118,4 +128,13 @@ int countWords(const std::string& str)
     } while(newPos != std::string::npos);
 
     return spaces + 1;
+}
+
+void Criterio::mostrarCriterio()
+{
+    std::cout << "\n==========================\n" <<;
+    std::cout << "\nDETALLES CRITERIO" <<;
+    std::cout << "Descripcion: " << this->descripcion << std::endl;
+    std::cout << "Ponderacion: " << this->ponderacion << endl;
+    std::cout << "\n==========================\n" <<;
 }

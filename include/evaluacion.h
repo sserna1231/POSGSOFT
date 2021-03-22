@@ -24,7 +24,7 @@ private:
     int id;
     Evaluacion notaj1, notaj2;
     float ponderacion, nota; //Peso, nota promedio de jurados
-    //std::string descripcion; Creo que falta
+    std::string descripcion;
 public:
     Criterio();
     int menuModificables();
@@ -34,6 +34,7 @@ public:
     void setNota();
     int getID();
     float getNota();
+    void mostrarCriterio();
 };
 
 //Cuenta cuantas palabras tiene una cadena
