@@ -1,6 +1,7 @@
 #include "colaborador.h"
 
 Colaborador::Colaborador(){
+    this->id = empty_id;
 }
 
 Colaborador::Colaborador( int id ){
@@ -66,6 +67,11 @@ void Colaborador::llenarColaborador(){
 void Colaborador::mostrarColaborador(){
     cout << endl;
 
+    if( this->id == empty_id ){
+        cout << "Vacio\n";
+        return;
+    }
+
     cout << "* Nombre: " << this->nombre << endl;
     cout << "* id: " << this->id << endl;
     cout << "* Celular: " << this->celular << endl;
@@ -111,6 +117,17 @@ void Colaborador::addTrabajoEval( int id, string titulo ){
     tuple<int, string> trabajoEval;
     trabajoEval = std::make_tuple( id, string );
     this->trabajos.push_back( trabajoEval );
+}
+
+void Colaborador::deleteTrabajoEval( int id, string titulo ){
+    tuple<int, string> t = std::make_tuple(id, titulo);
+    list<tuple<int, string>>::iterator it;
+    for( it = this->trabajos.begin(); it != this->trabajos.end(); it++ ){
+        if(*it == t){
+            trabajos.erase(it);
+            return;
+        }
+    }
 }
 
 int Colaborador::getId(){
