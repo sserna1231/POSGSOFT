@@ -86,7 +86,7 @@ void Acta::setColaborador(Colaborador& c)
         std::cout << "2. Codirector\n";
         std::cout << "3. Jurado 1\n";
         std::cout << "4. Jurado 2\n";
-        std::cout << "0. Salir\n\n";
+        std::cout << "0. Cancelar\n\n";
 
         std::cout << "> ";
         std::cin >> opc;
@@ -95,31 +95,124 @@ void Acta::setColaborador(Colaborador& c)
             case 1:
                 this->director = c;
                 c.setDirigidos( c.getDirigidos() + 1 );
-                c.setCargo( cargo_enum::DIRECTOR );
                 break;
             case 2:
                 this->codirector = c;
                 c.setDirigidos( c.getDirigidos() + 1 );
-                c.setCargo( cargo_enum::DIRECTOR );
                 break;
             case 3:
                 this->jurado1 = c;
                 c.setEvaluados( c.getEvaluados() + 1 );
                 c.addTrabajoEval( this->id, this->titulo );
-                c.setCargo( cargo_enum::JURADO );
                 break;
             case 4:
                 this->jurado2 = c;
                 c.setEvaluados( c.getEvaluados() + 1 );
                 c.addTrabajoEval( this->id, this->titulo );
-                c.setCargo( cargo_enum::JURADO );
                 break;
             case 0:
                 break;
             default:
                 std::cout << "Campo invalido\n";
         }
-    } while( opc );
+    } while( opc != 0 );
+}
+
+void Acta::setColaborador(list<Colaborador>& listaColab){
+    int opc, op, idActual, idNuevo;
+    Colaborador& colabNuevo, colabActual;
+    do{
+        std::cout << "\nIngrese el puesto a reemplazar:\n";
+        std::cout << "1. Director\n";
+        std::cout << "2. Codirector\n";
+        std::cout << "3. Jurado 1\n";
+        std::cout << "4. Jurado 2\n";
+        std::cout << "0. Cancelar\n\n";
+
+        std::cout << "> ";
+        std::cin >> opc;
+
+        switch( opc ){
+            case 1:
+            case 2:
+                cout << "Actualmente dirige/codirige:\n";
+                if( opc == 1 ){
+                    this->director.mostrarColaborador();
+                    idActual = director.getId();
+                }else{
+                    this->codirector.mostrarColaborador();
+                    idActual = codirector.getId();
+                }
+                if( idActual != empty_id ){
+                    cout << "¿Reemplazar? Si(1), No(cualquier otro numero)\n> ";
+                }else{
+                    cout << "¿Agregar? Si(1), No(cualquier otro numero)\n> ";
+                }
+                cin >> op;
+                if( op == 1 ){
+                    cout << "Ingrese id del nuevo Director/Codirector: ";
+                    cin >> idNuevo;
+                    for( list<Colaborador>::iterator it = listaColab.begin(); it != listaColab.end(); it++ ){
+                        if( it->getId() == idNuevo ){ 
+                            colabNuevo = *it;
+                        }else if( it->getId() == idActual ){
+                            colabActual = *it;
+                        }
+                    }
+                    if( id != colabNuevo.getId() ){
+                        cout << "Colaborador nuevo no registrado\n";
+                        cout << "Debe crearlo primero\n";
+                        break;
+                    }
+                    colabActual.setDirigidos( colabActual.getDirigidos() - 1 );
+                    colabNuevo.setDirigidos( colabNuevo.getDirigidos() + 1 );
+                    this->director = colabNuevo;
+                }
+                break;
+            case 3:
+            case 4:
+                cout << "Actualmente evalua:\n";
+                if( opc == 3 ){
+                    this->jurado1.mostrarColaborador();
+                    idActual = jurado1.getId();
+                }else{
+                    this->jurado2.mostrarColaborador();
+                    idActual = jurado2.getId();
+                }
+                if( idActual != empty_id ){
+                    cout << "¿Reemplazar? Si(1), No(cualquier otro numero)\n> ";
+                }else{
+                    cout << "¿Agregar? Si(1), No(cualquier otro numero)\n> ";
+                }
+                cin >> op;
+                if( op == 1 ){
+                    cout << "Ingrese id del nuevo Director/Codirector: ";
+                    cin >> idNuevo;
+                    for( list<Colaborador>::iterator it = listaColab.begin(); it != listaColab.end(); it++ ){
+                        if( it->getId() == idNuevo ){ 
+                            colabNuevo = *it;
+                        }else if( it->getId() == idActual ){
+                            colabActual = *it;
+                        }
+                    }
+                    if( id != colabNuevo.getId() ){
+                        cout << "Colaborador nuevo no registrado\n";
+                        cout << "Debe crearlo primero\n";
+                        break;
+                    }
+                    colabActual.setEvaluados( colabActual.getEvaluados() - 1 );
+                    colabActual.deleteTrabajoEval( this->id, this->titulo );
+                    colabNuevo.setEvaluados( colabNuevo.getEvaluados() + 1 );
+                    colabNuevo.addTrabajoEval( this->id, this->titulo );
+                    this->director = colabNuevo;
+                }
+                break;
+            case 0:
+                break;
+            default:
+                std::cout << "Campo invalido\n";
+        }
+    }while( opc != 0 );
 }
 
 void Acta::setPeriodo()
