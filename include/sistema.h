@@ -38,9 +38,9 @@ public:
     void mostrarActas();
     void mostrarJurados();
     void mostrarCriterios();
-    void EliminarActa( int );
-    void EliminarEstudiante( int );
-    void EliminarColaborador( int );
+    void eliminarActa( int );
+    void eliminarEstudiante( int );
+    void eliminarColaborador( int );
     int getActasCreadas();
     int getEstudiantesCreados();
     int getColabsCreados();
