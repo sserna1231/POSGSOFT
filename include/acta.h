@@ -61,6 +61,8 @@ public:
     Diligencia getDiligencia();
     Aprobacion getAprobacion();
     string getTitulo();
+    int getId();
+    Tipo getTipo();
     //void guardarActa();
     void mostrarActa();
     void mostrarEstado();

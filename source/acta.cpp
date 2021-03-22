@@ -212,6 +212,14 @@ string Acta::getTitulo(){
     return this->titulo;
 }
 
+int Acta::getId(){
+    return this->id;
+}
+
+Tipo Acta::getTipo(){
+    return this->tipo;
+}
+
 void Acta::mostrarActa()
 {
     std::cout << "\n===============================\n";
