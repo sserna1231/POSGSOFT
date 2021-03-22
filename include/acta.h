@@ -51,6 +51,7 @@ public:
     void evaluarActa();
     void setEstudiante(Estudiante);
     void setColaborador(Colaborador&);
+    void setColaborador(list<Colaborador>&);
     void setPeriodo();
     void setTitulo();
     void setNotaFinal();

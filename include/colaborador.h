@@ -1,6 +1,8 @@
 #ifndef COLABORADOR_H
 #define COLABORADOR_H
 
+constexpr int empty_id = -1;
+
 #include <iostream>
 #include <tuple>
 #include <list>
@@ -31,7 +33,6 @@ class Colaborador{
         int dirigidos; //Cantidad de trabajos que ha dirigido el colaborador
         int evaluados; //Cantidad de trabajos en los que ha sido jurado el colaborador
         list<tuple<int, string>> trabajos; //Corresponde a los trabajos evaluados por el colaborador
-        
 
     public:
         Colaborador();
@@ -44,6 +45,7 @@ class Colaborador{
         void setEvaluados( int );
         void setCargo( cargo_enum );
         void addTrabajoEval( int, string );
+        void deleteTrabajoEval( int, string );
         int getId();
         int getDirigidos();
         int getEvaluados();

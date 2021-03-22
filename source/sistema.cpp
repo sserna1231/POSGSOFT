@@ -102,15 +102,7 @@ void Sistema::modificarActa()
                 break;
             case 8:
             case 10:
-                cout << "Ingrese el ID del nuevo Colaborador: ";
-                cin >> id; //Identificador reutilizado
-                cout << endl;
-                colaborador = this->buscarColab( id );
-                if(colaborador.getId() != id){
-                    std::cout << "Colaborador inexistente.\n";
-                    break;
-                }
-                acta.setColaborador( colaborador );
+                acta.setColaborador( &this->listaColab );
                 break;
             case 11:
                 std::cout << "Ingrese el id del criterio: ";
@@ -211,7 +203,7 @@ void Sistema::mostrarCriterios(){
     }
 }
 
-void Sistema::EliminarActa( int id ){
+void Sistema::eliminarActa( int id ){
     list<Acta>::iterator it;
     for( it = this->listaActas.begin(); it != this->listaActas.end(); it++ ){
         if( it->id == id ){
@@ -225,7 +217,7 @@ void Sistema::EliminarActa( int id ){
     }
 }
 
-void Sistema::EliminarEstudiante( int id ){
+void Sistema::eliminarEstudiante( int id ){
     list<Estudiante>::iterator it;
     for( it = this->listaEstudiante.begin(); it != this->listaEstudiante.end(); it++ ){
         if( it->id == id ){
@@ -235,7 +227,7 @@ void Sistema::EliminarEstudiante( int id ){
     }
 }
 
-void Sistema::EliminarColaborador( int id ){
+void Sistema::eliminarColaborador( int id ){
     list<Colaborador>::iterator it;
     for( it = this->listaColab.begin(); it != this->listaColab.end(); it++ ){
         if( it->id == id ){
