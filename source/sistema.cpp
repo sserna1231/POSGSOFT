@@ -2,11 +2,8 @@
 
 Sistema::Sistema(){
     cout << "Ingrese el nombre del sistema: ";
-    cin >> this->nombre;
-    actasCreadas = estudiantesCreados = colabsCreados = 0;
-    this->listaActas.push_back( Acta() );
-    this->listaEstudiante.push_back( Estudiante() );
-    this->listaColab.push_back( Colaborador() );
+    getline(cin >> std::ws, this->nombre);
+    actasCreadas = estudiantesCreados = colabsCreados = criteriosCreados = 0;
     cout << endl;
 }
 
@@ -48,9 +45,11 @@ void Sistema::modificarActa()
         cout << "Acta cerrada: no puede modificarse" << endl;
         return;
     }  
+
     list<Estudiante>::iterator estudiante;
     list<Colaborador>::iterator colaborador;
     list<Criterio>::iterator criterio;
+
     do{
         opc = this->menuActa();
         switch(opc){
@@ -104,7 +103,7 @@ void Sistema::modificarActa()
                 break;
             case 8:
             case 10:
-                acta->setColaborador( this->listaColab );                                                        //***********************************
+                acta->setColaborador( this->listaColab.begin(), this->listaColab.end() );                                                        //***********************************
                 break;
             case 11:
                 std::cout << "Ingrese el id del criterio: ";
@@ -140,8 +139,13 @@ void Sistema::addColab( Colaborador colab ){
     this->colabsCreados++;
 }
 
+void Sistema::addCriterio( Criterio c ){
+    this->listaCriterios.push_back( c );
+    this->criteriosCreados++;
+}
+
 list<Estudiante>::iterator Sistema::buscarEstudiante( int id ){
-    if( this->listaEstudiante.size() - 1 == 0 ){
+    if( this->listaEstudiante.size() == 0 ){
         cout << "No hay estudiantes en el sistema\n";
         return this->listaEstudiante.end();
     }
@@ -155,7 +159,7 @@ list<Estudiante>::iterator Sistema::buscarEstudiante( int id ){
 }
 
 list<Colaborador>::iterator Sistema::buscarColab( int id ){
-    if( this->listaColab.size() - 1 == 0 ){
+    if( this->listaColab.size() == 0 ){
         cout << "No hay colaboradores en el sistema\n";
         return this->listaColab.end();
     }
@@ -169,7 +173,7 @@ list<Colaborador>::iterator Sistema::buscarColab( int id ){
 }
 
 list<Acta>::iterator Sistema::buscarActa( int id ){
-    if( this->listaActas.size() - 1 == 0 ){
+    if( this->listaActas.size() == 0 ){
         cout << "No hay actas en el sistema\n";
         return this->listaActas.end();
     }
@@ -182,12 +186,26 @@ list<Acta>::iterator Sistema::buscarActa( int id ){
     return this->listaActas.end();
 }
 
+list<Criterio>::iterator Sistema::buscarCriterio( int id ){
+    if( this->listaCriterios.size() == 0 ){
+        cout << "No hay criterios en el sistema\n";
+        return this->listaCriterios.end();
+    }
+    list<Criterio>::iterator it;
+    for( it = this->listaCriterios.begin(); it != this->listaCriterios.end(); it++ ){
+        if( it->getID() == id ){
+            return it;
+        }
+    }
+    return this->listaCriterios.end();
+}
+
 list<Criterio>& Sistema::getRefList(){
     return this->listaCriterios;
 }
 
 void Sistema::mostrarActas(){
-    if( this->listaActas.size() - 1 == 0 ){
+    if( this->listaActas.size() == 0 ){
         cout << "No hay actas en el sistema\n";
         return;
     }
@@ -201,7 +219,7 @@ void Sistema::mostrarActas(){
 }
 
 void Sistema::mostrarEstudiantes(){
-    if( this->listaEstudiante.size() - 1 == 0 ){
+    if( this->listaEstudiante.size() == 0 ){
         cout << "No hay estudiantes en el sistema\n";
         return;
     }
@@ -216,7 +234,7 @@ void Sistema::mostrarEstudiantes(){
 }
 
 void Sistema::mostrarJurados(){
-    if( this->listaColab.size() - 1 == 0 ){
+    if( this->listaColab.size() == 0 ){
         cout << "No hay colaboradores en el sistema\n";
         return;
     }
@@ -283,6 +301,20 @@ void Sistema::eliminarColaborador( int id ){
     }
 }
 
+void Sistema::eliminarCriterio( int id ){
+    if( this->listaCriterios.size() == 0 ){
+        cout << "No hay criterios en el sistema\n";
+        return;
+    }
+    list<Criterio>::iterator it;
+    for( it = this->listaCriterios.begin(); it != this->listaCriterios.end(); it++ ){
+        if( it->getID() == id ){
+            this->listaCriterios.erase( it );
+            return;
+        }
+    }
+}
+
 int Sistema::getActasCreadas(){
     return this->actasCreadas;
 }
@@ -293,6 +325,10 @@ int Sistema::getEstudiantesCreados(){
 
 int Sistema::getColabsCreados(){
     return this->colabsCreados;
+}
+
+int Sistema::getCritCreados(){
+    return this->criteriosCreados;
 }
 
 void Sistema::setActasCreadas( int ac ){
@@ -333,4 +369,12 @@ list<Acta>::iterator Sistema::getListActasBegin(){
 
 list<Acta>::iterator Sistema::getListActasEnd(){
     return this->listaActas.end();
+}
+
+list<Estudiante>::iterator Sistema::getListEstudianteEnd(){
+    return this->listaEstudiante.end();
+}
+
+list<Criterio>::iterator Sistema::getListCriteriosEnd(){
+    return this->listaCriterios.end();
 }

@@ -18,7 +18,7 @@ class Sistema
 {
 private:
     std::string nombre;
-    int actasCreadas, estudiantesCreados, colabsCreados;
+    int actasCreadas, estudiantesCreados, colabsCreados, criteriosCreados;
     std::list<Acta> listaActas;
     std::list<Colaborador> listaColab;
     std::list<Criterio> listaCriterios;
@@ -29,9 +29,11 @@ public:
     void addActa( Acta );
     void addEstudiante( Estudiante );
     void addColab( Colaborador );
+    void addCriterio( Criterio );
     list<Estudiante>::iterator buscarEstudiante( int );
     list<Colaborador>::iterator buscarColab( int );
     list<Acta>::iterator buscarActa( int );
+    list<Criterio>::iterator buscarCriterio( int );
     list<Criterio>& getRefList(); //SERNA DEBE REVISAR SI ES NECESARIO USAR LA REFERENCIA
     int menuActa();
     void modificarActa();
@@ -42,9 +44,11 @@ public:
     void eliminarActa( int );
     void eliminarEstudiante( int );
     void eliminarColaborador( int );
+    void eliminarCriterio( int );
     int getActasCreadas();
     int getEstudiantesCreados();
     int getColabsCreados();
+    int getCritCreados();
     void setActasCreadas( int );
     void setEstudiantesCreados( int );
     void setColabsCreados( int );
@@ -55,6 +59,8 @@ public:
     list<Colaborador>::iterator getListColabEnd();
     list<Acta>::iterator getListActasBegin();
     list<Acta>::iterator getListActasEnd();
+    list<Estudiante>::iterator getListEstudianteEnd();
+    list<Criterio>::iterator getListCriteriosEnd();
 };
 
 #endif
