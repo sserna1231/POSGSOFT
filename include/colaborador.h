@@ -1,7 +1,8 @@
 #ifndef COLABORADOR_H
 #define COLABORADOR_H
 
-constexpr int empty_id = -1;
+#define EMPTY_ID
+static constexpr int empty_id = -1;
 
 #include <iostream>
 #include <tuple>
@@ -12,7 +13,7 @@ using std::cout;
 using std::endl;
 using std::string;
 using std::tuple;
-using std:list;
+using std::list;
 
 enum class cargo_enum{
     PROFESOR, JURADO
@@ -26,7 +27,7 @@ class Colaborador{
     private:
         string nombre;
         int id;
-        int celular;
+        string celular;
         string email;
         cargo_enum cargo;
         afil_enum afiliacion;
@@ -37,7 +38,7 @@ class Colaborador{
     public:
         Colaborador();
         Colaborador(int);
-        Colaborador( string, int, int, string, cargo_enum, afil_enum );
+        Colaborador( string, int, string, string, cargo_enum, afil_enum );
         void llenarColaborador();
         void mostrarColaborador();
         void setId( int );
@@ -54,6 +55,6 @@ class Colaborador{
         void modificarColaborador();
         int mostrarOpciones();
         void mostrarTrabajosEval();
-}
+};
 
 #endif

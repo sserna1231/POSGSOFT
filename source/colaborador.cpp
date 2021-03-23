@@ -2,6 +2,8 @@
 
 Colaborador::Colaborador(){
     this->id = empty_id;
+    this->dirigidos = 0;
+    this->evaluados = 0;
 }
 
 Colaborador::Colaborador( int id ){
@@ -10,7 +12,7 @@ Colaborador::Colaborador( int id ){
     this->evaluados = 0;
 }
 
-Colaborador::Colaborador( string nombre, int id, int celular, string email, cargo_enum cargo, afil_enum afiliacion ){
+Colaborador::Colaborador( string nombre, int id, string celular, string email, cargo_enum cargo, afil_enum afiliacion ){
     this->nombre = nombre;
     this->id = id;
     this->celular = celular;
@@ -22,35 +24,51 @@ Colaborador::Colaborador( string nombre, int id, int celular, string email, carg
 }
 
 void Colaborador::llenarColaborador(){
-    string nombre, email;
-    int celular;
+    string nombre, email, celular;
     cargo_enum cargo;
     afil_enum afiliacion;
     int opc = 0;
 
     cout << endl;
 
-    cout << "Ingrese el nombre del estudiante: ";
+    cout << "Ingrese el nombre del colaborador: ";
     cin.ignore();
     getline( cin, nombre );
 
     cout << "Telefono celular: ";
-    cin >> celular;
+    getline( cin, celular );
 
     cout << "Ingrese el email: ";
-    cin >> email;
+    getline( cin, email );
 
     do{
         cout << "Interno(1) o Externo(2): ";
         cin >> opc;
         if( opc == 1 ){
             afiliacion = afil_enum::INTERNO;
+            opc = 0;
         }else{
             if( opc == 2 ){
                 afiliacion = afil_enum::EXTERNO;
+                opc = 0;
             }else{
                 cout << "Opcion no valida" << endl;
+            }
+        }
+    }while( opc != 0 );
+
+    do{
+        cout << "Jurado(1) o Profesor(2): ";
+        cin >> opc;
+        if( opc == 1 ){
+            cargo = cargo_enum::JURADO;
+            opc = 0;
+        }else{
+            if( opc == 2 ){
+                cargo = cargo_enum::PROFESOR;
                 opc = 0;
+            }else{
+                cout << "Opcion no valida" << endl;
             }
         }
     }while( opc != 0 );
@@ -109,13 +127,13 @@ void Colaborador::setEvaluados( int evaluados ){
     this->evaluados = evaluados;
 }
 
-void setCargo( cargo_enum cargo ){
+void Colaborador::setCargo( cargo_enum cargo ){
     this->cargo = cargo;
 }
 
 void Colaborador::addTrabajoEval( int id, string titulo ){
     tuple<int, string> trabajoEval;
-    trabajoEval = std::make_tuple( id, string );
+    trabajoEval = std::make_tuple( id, titulo );
     this->trabajos.push_back( trabajoEval );
 }
 
@@ -151,8 +169,7 @@ afil_enum Colaborador::getAfil(){
 }
 
 void Colaborador::modificarColaborador(){
-    string nombre, email;
-    int celular;
+    string nombre, email, celular;
     cargo_enum cargo;
     int opc, op;
     do{
@@ -166,12 +183,12 @@ void Colaborador::modificarColaborador(){
                 break;
             case 2:
                 cout << "Telefono celular: ";
-                cin >> celular;
+                getline( cin, celular );
                 this->celular = celular;
                 break;
             case 3:
                 cout << "Ingrese el email: ";
-                cin >> email;
+                getline( cin, email );
                 break;
             case 4:
                 do{
@@ -179,12 +196,13 @@ void Colaborador::modificarColaborador(){
                     cin >> op;
                     if( op == 1 ){
                         cargo = cargo_enum::JURADO;
+                        op = 0;
                     }else{
                         if( op == 2 ){
                             cargo = cargo_enum::PROFESOR;
+                            op = 0;
                         }else{
                             cout << "Opcion no valida" << endl;
-                            op = 0;
                         }
                     }
                 }while( op != 0 );
@@ -195,12 +213,13 @@ void Colaborador::modificarColaborador(){
                     cin >> op;
                     if( op == 1 ){
                         afiliacion = afil_enum::INTERNO;
+                        op = 0;
                     }else{
                         if( op == 2 ){
                             afiliacion = afil_enum::EXTERNO;
+                            op = 0;
                         }else{
                             cout << "Opcion no valida" << endl;
-                            op = 0;
                         }
                     }
                 }while( op != 0 );
@@ -220,8 +239,8 @@ int Colaborador::mostrarOpciones(){
     cout << "1. Nombre\n";
     cout << "2. Celular\n";
     cout << "3. Email\n";
-    cout << "4. Cargo\n"
-    cout << "5. Afiliacion\n"
+    cout << "4. Cargo\n";
+    cout << "5. Afiliacion\n";
     cout << "0. Salir\n";
     cout << "> ";
     cin >> opc;
