@@ -27,12 +27,15 @@ private:
     std::string descripcion;
 public:
     Criterio();
+    Criterio( int );
     int menuModificables();
+    void modificarCriterio();
     void evaluarCriterio();
     void setNotaJ1();
     void setNotaJ2();
     void setNota();
     int getID();
+    void setId( int );
     float getNota();
     void mostrarCriterio();
 };

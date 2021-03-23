@@ -6,6 +6,49 @@ Criterio::Criterio()
     this->nota = empty_grade;
 };
 
+Criterio::Criterio( int id ){
+    std::cout << "Ingrese la descripcion del criterio: ";
+    std::getline(std::cin >> std::ws, this->descripcion);
+    this->nota = empty_grade;
+    do{
+        std::cout << "Ingrese la ponderacion del criterio: ";
+        std::cin >> this->ponderacion;
+    }while( this->ponderacion < 0 || this->ponderacion > 1 );
+}
+
+void Criterio::modificarCriterio(){
+    int opc;
+    do{
+        opc = this->menuModificables();
+        switch(opc){
+            case 1:
+                std::getline(std::cin >> std::ws, this->descripcion);        
+                break;
+            case 2:
+                do{
+                    std::cout << "Ingrese la ponderacion del criterio: ";
+                    std::cin >> this->ponderacion;
+                }while( this->ponderacion < 0 || this->ponderacion > 1 );
+                break;
+            case 0:
+                break;
+            default:
+                std::cout << "Opcion invalida\n";
+        }
+    } while(opc != 0);
+}
+
+int Criterio::menuModificables(){
+    int opc;
+    std::cout << "Digite el campo que desea editar:\n";
+    std::cout << "1. Descripcion\n";
+    std::cout << "2. Ponderacion\n";
+    std::cout << "0. Cancelar\n\n";
+    std::cout << "> ";
+    std::cin >> opc;
+    return opc;
+}
+
 void Criterio::evaluarCriterio()
 {
     int numJurado;
@@ -112,6 +155,10 @@ float Criterio::getNota()
 int Criterio::getID()
 {
     return this->id;
+}
+
+void Criterio::setId( int id ){
+    this->id = id;
 }
 
 int countWords(const std::string& str)
