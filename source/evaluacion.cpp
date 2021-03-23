@@ -132,9 +132,9 @@ int countWords(const std::string& str)
 
 void Criterio::mostrarCriterio()
 {
-    std::cout << "\n==========================\n" <<;
-    std::cout << "\nDETALLES CRITERIO" <<;
+    std::cout << "\n==========================\n";
+    std::cout << "\nDETALLES CRITERIO\n";
     std::cout << "Descripcion: " << this->descripcion << std::endl;
-    std::cout << "Ponderacion: " << this->ponderacion << endl;
-    std::cout << "\n==========================\n" <<;
+    std::cout << "Ponderacion: " << this->ponderacion << std::endl;
+    std::cout << "\n==========================\n";
 }
