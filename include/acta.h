@@ -52,7 +52,7 @@ public:
     void evaluarActa();
     void setEstudiante(Estudiante);
     void setColaborador(list<Colaborador>::iterator);
-    void setColaborador(list<Colaborador>&);
+    void setColaborador(list<Colaborador>::iterator, list<Colaborador>::iterator);
     void setPeriodo();
     void setTitulo();
     void setNotaFinal();

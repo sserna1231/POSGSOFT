@@ -94,22 +94,26 @@ void Acta::setColaborador(list<Colaborador>::iterator c)
 
         switch(opc){
             case 1:
-                this->director = *c;
                 c->setDirigidos( c->getDirigidos() + 1 );
+                this->director = *c;
+                opc = 0;
                 break;
             case 2:
-                this->codirector = *c;
                 c->setDirigidos( c->getDirigidos() + 1 );
+                this->codirector = *c;
+                opc = 0;
                 break;
             case 3:
-                this->jurado1 = *c;
                 c->setEvaluados( c->getEvaluados() + 1 );
                 c->addTrabajoEval( this->id, this->titulo );
+                this->jurado1 = *c;
+                opc = 0;
                 break;
             case 4:
-                this->jurado2 = *c;
                 c->setEvaluados( c->getEvaluados() + 1 );
                 c->addTrabajoEval( this->id, this->titulo );
+                this->jurado2 = *c;
+                opc = 0;
                 break;
             case 0:
                 break;
@@ -119,10 +123,11 @@ void Acta::setColaborador(list<Colaborador>::iterator c)
     } while( opc != 0 );
 }
 
-void Acta::setColaborador(list<Colaborador>& listaColab){
+void Acta::setColaborador( list<Colaborador>::iterator begin, list<Colaborador>::iterator end ){
     int opc, op, idActual, idNuevo;
-    list<Colaborador>::iterator colabNuevo;
-    list<Colaborador>::iterator colabActual;
+    list<Colaborador>::iterator colabNuevo = end;
+    list<Colaborador>::iterator colabActual = end;
+    list<Colaborador>::iterator it = begin;
     do{
         std::cout << "\nIngrese el puesto a reemplazar:\n";
         std::cout << "1. Director\n";
@@ -154,19 +159,26 @@ void Acta::setColaborador(list<Colaborador>& listaColab){
                 if( op == 1 ){
                     cout << "Ingrese id del nuevo Director/Codirector: ";
                     cin >> idNuevo;
-                    for( list<Colaborador>::iterator it = listaColab.begin(); it != listaColab.end(); it++ ){
+                    if(idNuevo == this->director.getId()) this->director.setId(empty_id);
+                    if(idNuevo == this->codirector.getId()) this->codirector.setId(empty_id);
+                    if(idNuevo == this->jurado1.getId()) this->jurado1.setId(empty_id);
+                    if(idNuevo == this->jurado2.getId()) this->jurado2.setId(empty_id);
+                    for( ; it != end; it++ ){
                         if( it->getId() == idNuevo ){ 
                             colabNuevo = it;
-                        }else if( it->getId() == idActual ){
+                        }
+                        if( it->getId() == idActual ){
                             colabActual = it;
                         }
                     }
-                    if( id != colabNuevo->getId() ){
+                    if( colabNuevo == end ){
                         cout << "Colaborador nuevo no registrado\n";
                         cout << "Debe crearlo primero\n";
                         break;
                     }
-                    colabActual->setDirigidos( colabActual->getDirigidos() - 1 );
+                    if( colabActual != end ){
+                        colabActual->setDirigidos( colabActual->getDirigidos() - 1 );
+                    }
                     colabNuevo->setDirigidos( colabNuevo->getDirigidos() + 1 );
                     if( opc == 1 ){
                         this->director = *colabNuevo;
@@ -174,6 +186,7 @@ void Acta::setColaborador(list<Colaborador>& listaColab){
                         this->codirector = *colabNuevo;
                     }
                 }
+                opc = 0;
                 break;
             case 3:
             case 4:
@@ -186,36 +199,44 @@ void Acta::setColaborador(list<Colaborador>& listaColab){
                     idActual = jurado2.getId();
                 }
                 if( idActual != empty_id ){
-                    cout << "¿Reemplazar? Si(1), No(cualquier otro numero)\n> ";
+                    cout << "Reemplazar? Si(1), No(cualquier otro numero)\n> ";
                 }else{
-                    cout << "¿Agregar? Si(1), No(cualquier otro numero)\n> ";
+                    cout << "Agregar? Si(1), No(cualquier otro numero)\n> ";
                 }
                 cin >> op;
                 if( op == 1 ){
-                    cout << "Ingrese id del nuevo Director/Codirector: ";
+                    cout << "Ingrese id del nuevo Jurado: ";
                     cin >> idNuevo;
-                    for( list<Colaborador>::iterator it = listaColab.begin(); it != listaColab.end(); it++ ){
+                    if(idNuevo == this->director.getId()) this->director.setId(empty_id);
+                    if(idNuevo == this->codirector.getId()) this->codirector.setId(empty_id);
+                    if(idNuevo == this->jurado1.getId()) this->jurado1.setId(empty_id);
+                    if(idNuevo == this->jurado2.getId()) this->jurado2.setId(empty_id);
+                    for( it = begin; it != end; it++ ){
                         if( it->getId() == idNuevo ){ 
                             colabNuevo = it;
-                        }else if( it->getId() == idActual ){
+                        }
+                        if( it->getId() == idActual ){
                             colabActual = it;
                         }
                     }
-                    if( id != colabNuevo->getId() ){
+                    if( colabNuevo == end ){
                         cout << "Colaborador nuevo no registrado\n";
                         cout << "Debe crearlo primero\n";
                         break;
                     }
-                    colabActual->setEvaluados( colabActual->getEvaluados() - 1 );
-                    colabActual->deleteTrabajoEval( this->id, this->titulo );
+                    if( colabActual != end ){
+                        colabActual->setEvaluados( colabActual->getEvaluados() - 1 );
+                        colabActual->deleteTrabajoEval( this->id, this->titulo );
+                    }
                     colabNuevo->setEvaluados( colabNuevo->getEvaluados() + 1 );
-                    colabNuevo->addTrabajoEval( this->id, this->titulo );
+                    colabNuevo->addTrabajoEval( idNuevo, this->titulo );
                     if( opc == 3 ){
                         this->jurado1 = *colabNuevo;
                     }else{
                         this->jurado2 = *colabNuevo;
                     }
                 }
+                opc = 0;
                 break;
             case 0:
                 break;
@@ -227,8 +248,8 @@ void Acta::setColaborador(list<Colaborador>& listaColab){
 
 void Acta::setPeriodo()
 {
-    std::cout << "Ingrese el periodo lectivo.\nNOTA: seguir el\
-        formato [AAAA-SEMESTRE:Tesis( Num. Romano)].\n\n";
+    std::cout << "Ingrese el periodo lectivo.\nNOTA: seguir el ";
+    std::cout << "formato [AAAA-SEMESTRE:Tesis( Num. Romano)].\n\n";
     std::cout << "Ejemplo: 2021-2:Tesis II\n\n";
     std::cout << "> ";
     std::cin.ignore();
