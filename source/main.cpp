@@ -10,7 +10,7 @@ int main(){
         cout << "1. Crear nueva acta\n";
         cout << "2. Evaluar acta\n";
         cout << "3. Mostrar estado acta\n";
-        cout << "4. Modificar acta\n"; //************************Reducir dirigidos/evaluados al antiguo colaborador
+        cout << "4. Modificar acta\n";
         cout << "5. Abrir/Cerrar acta\n";
         cout << "6. Guardar acta en formato\n";
         cout << "7. Listar actas\n";
@@ -19,7 +19,7 @@ int main(){
         cout << "10. Listar actas trabajo investigativo\n";
         cout << "11. Consultar # trabajos dirigidos por colaborador\n";
         cout << "12. Consultar # trabajos evaluados por colaborador\n";
-        cout << "13. Consultar trabajos evaluados por colaborador\n"; //*************************
+        cout << "13. Consultar trabajos evaluados por colaborador\n";
         cout << "14. Mostrar Jurados\n";
         cout << "15. Mostrar actas pendientes & reprobadas\n";
         cout << "16. Crear Colaborador\n";
@@ -31,8 +31,11 @@ int main(){
         cout << "22. Eliminar acta\n";
         cout << "23. Eliminar estudiante\n";
         cout << "24. Eliminar colaborador\n";
-        cout << "25. Modificar colaborador\n";
-        cout << "26. Modificar Estudiante\n";
+        cout << "25. Eliminar criterio\n";
+        cout << "26. Modificar colaborador\n";
+        cout << "27. Modificar Estudiante\n";
+        cout << "28. Modificar Criterio\n";
+        cout << "29. Crear criterios\n";
         cout << "0. Salir\n\n";
         cout << "> ";
         cin >> opc;
@@ -45,6 +48,7 @@ int main(){
         int id, op;
         list<Estudiante>::iterator estudiante;
         list<Colaborador>::iterator colaborador;
+        list<Criterio>::iterator criterio;
 
         switch ( opc ){
             case 1:
@@ -54,11 +58,12 @@ int main(){
                 cin >> id;
                 cout << endl;
                 estudiante = Javeriana.buscarEstudiante( id );
-                if( id != estudiante->getId() ){
+                if( estudiante == Javeriana.getListEstudianteEnd() ){
                     cout << "Estudiante no registrado\n";
                     cout << "Debe crearlo primero\n";
                     break;
                 }
+                acta.setEstudiante( *estudiante );
                 do{
                     cout << "Desea anadir un colaborador?\n";
                     cout << "1. Si\n";
@@ -70,7 +75,7 @@ int main(){
                         cin >> id;
                         cout << endl;
                         colaborador = Javeriana.buscarColab( id );
-                        if( id != colaborador->getId() ){
+                        if( colaborador == Javeriana.getListColabEnd() ){
                             cout << "Colaborador no registrado\n";
                             cout << "Debe crearlo primero\n";
                             break;
@@ -78,7 +83,7 @@ int main(){
                         acta.setColaborador( colaborador );
                     }
                 }while( op != 0 );
-                cout << "Id: " << acta.getId() << endl;
+                cout << "\nId: " << acta.getId() << endl;
                 Javeriana.addActa( acta );
                 break;
             case 2:
@@ -86,7 +91,7 @@ int main(){
                 cin >> id;
                 cout << endl;
                 pActa = Javeriana.buscarActa( id );
-                if( id != pActa->getId() ){
+                if( pActa == Javeriana.getListActasEnd() ){
                     cout << "Acta no registrado\n";
                     cout << "Debe crearla primero\n";
                     break;
@@ -98,7 +103,7 @@ int main(){
                 cin >> id;
                 cout << endl;
                 pActa = Javeriana.buscarActa( id );
-                if( id != pActa->getId() ){
+                if( pActa == Javeriana.getListActasEnd() ){
                     cout << "Acta no registrado\n";
                     cout << "Debe crearla primero\n";
                     break;
@@ -113,7 +118,7 @@ int main(){
                 cin >> id;
                 cout << endl;
                 pActa = Javeriana.buscarActa( id );
-                if( id != pActa->getId() ){
+                if( pActa == Javeriana.getListActasEnd() ){
                     cout << "Acta no registrado\n";
                     cout << "Debe crearla primero\n";
                     break;
@@ -128,7 +133,7 @@ int main(){
                 Javeriana.mostrarActas();
                 break;
             case 8:
-                if( Javeriana.getListActasSize() == 0 ){
+                if( Javeriana.getListActasSize() == 0){
                     cout << "No hay actas en el sistema\n";
                     break;
                 }
@@ -174,7 +179,7 @@ int main(){
                 cin >> id;
                 cout << endl;
                 colaborador = Javeriana.buscarColab( id );
-                if( id != colaborador->getId() ){
+                if( colaborador == Javeriana.getListColabEnd() ){
                     cout << "Colaborador no registrado\n";
                     cout << "Debe crearlo primero\n";
                     break;
@@ -191,7 +196,7 @@ int main(){
                 cin >> id;
                 cout << endl;
                 colaborador = Javeriana.buscarColab( id );
-                if( id != colaborador->getId() ){
+                if( colaborador == Javeriana.getListColabEnd() ){
                     cout << "Colaborador no registrado\n";
                     cout << "Debe crearlo primero\n";
                     break;
@@ -247,7 +252,7 @@ int main(){
                 cin >> id;
                 cout << endl;
                 pActa = Javeriana.buscarActa( id );
-                if( id != pActa->getId() ){
+                if( pActa == Javeriana.getListActasEnd() ){
                     cout << "Acta no registrada\n";
                     cout << "Debe crearla primero\n";
                     break;
@@ -260,7 +265,7 @@ int main(){
                 cin >> id;
                 cout << endl;
                 estudiante = Javeriana.buscarEstudiante( id );
-                if( id != estudiante->getId() ){
+                if( estudiante == Javeriana.getListEstudianteEnd() ){
                     cout << "Estudiante no registrado\n";
                     cout << "Debe crearlo primero\n";
                     break;
@@ -273,7 +278,7 @@ int main(){
                 cin >> id;
                 cout << endl;
                 colaborador = Javeriana.buscarColab( id );
-                if( id != colaborador->getId() ){
+                if( colaborador == Javeriana.getListColabEnd() ){
                     cout << "Colaborador no registrado\n";
                     cout << "Debe crearlo primero\n";
                     break;
@@ -281,29 +286,57 @@ int main(){
                 Javeriana.eliminarColaborador( id );
                 cout << "Eliminado con exito\n";
                 break;
-            case 25:
+            case 25:    //ELIMINAR CRITERIO
+                cout << "Ingrese el id del criterio: ";
+                cin >> id;
+                cout << endl;
+                criterio = Javeriana.buscarCriterio( id );
+                if( criterio == Javeriana.getListCriteriosEnd() ){
+                    cout << "Criterio no registrado\n";
+                    cout << "Debe crearlo primero\n";
+                    break;
+                }
+                Javeriana.eliminarCriterio( id );
+                cout << "Eliminado con exito\n";
+                break;
+            case 26:
                 cout << "Ingrese el id del colaborador: ";
                 cin >> id;
                 cout << endl;
                 colaborador = Javeriana.buscarColab( id );
-                if( id != colaborador->getId() ){
+                if( colaborador == Javeriana.getListColabEnd() ){
                     cout << "Colaborador no registrado\n";
                     cout << "Debe crearlo primero\n";
                     break;
                 }
                 colaborador->modificarColaborador();
                 break;
-            case 26:
+            case 27:
                 cout << "Ingrese id del estudiante: ";
                 cin >> id;
                 cout << endl;
                 estudiante = Javeriana.buscarEstudiante( id );
-                if( id != estudiante->getId() ){
+                if( estudiante == Javeriana.getListEstudianteEnd() ){
                     cout << "Estudiante no registrado\n";
                     cout << "Debe crearlo primero\n";
                     break;
                 }
                 estudiante->modificarEstudiante();
+                break;
+            case 28:
+                cout << "Ingrese el id del criterio: ";
+                cin >> id;
+                cout << endl;
+                criterio = Javeriana.buscarCriterio( id );
+                if( criterio == Javeriana.getListCriteriosEnd() ){
+                    cout << "Criterio no registrado\n";
+                    cout << "Debe crearlo primero\n";
+                    break;
+                }
+                criterio->modificarCriterio();
+                break;
+            case 29:
+                Javeriana.addCriterio( Criterio( Javeriana.getCritCreados() + 1 ) );
                 break;
             case 0:
                 cout << "Saliendo...\n";
