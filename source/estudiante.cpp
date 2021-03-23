@@ -1,10 +1,14 @@
-#include "..//include//estudiante.h"
+#include "estudiante.h"
+
+Estudiante::Estudiante(){
+    this->id = empty_id;
+}
 
 Estudiante::Estudiante( int id ){
     this->id = id;
 }
 
-Estudiante::Estudiante( string nombre, int id, int celular, string email ){
+Estudiante::Estudiante( string nombre, int id, string celular, string email ){
     this->nombre = nombre;
     this->id = id;
     this->celular = celular;
@@ -12,8 +16,7 @@ Estudiante::Estudiante( string nombre, int id, int celular, string email ){
 }
 
 void Estudiante::llenarEstudiante(){
-    string nombre, email;
-    int celular;
+    string nombre, email, celular;
 
     cout << endl;
 
@@ -22,10 +25,10 @@ void Estudiante::llenarEstudiante(){
     getline( cin, nombre );
 
     cout << "Telefono celular: ";
-    cin >> celular;
+    getline( cin, celular );
 
     cout << "Ingrese el email: ";
-    cin >> email;
+    getline( cin, email );
 
     this->nombre = nombre;
     this->celular = celular;
@@ -50,8 +53,7 @@ int Estudiante::getId(){
 }
 
 void Estudiante::modificarEstudiante(){
-    string nombre, email;
-    int celular;
+    string nombre, email, celular;
     int opc;
     do{
         opc = this->mostrarOpciones();
@@ -64,12 +66,12 @@ void Estudiante::modificarEstudiante(){
                 break;
             case 2:
                 cout << "Telefono celular: ";
-                cin >> celular;
+                getline( cin, celular );
                 this->celular = celular;
                 break;
             case 3:
                 cout << "Ingrese el email: ";
-                cin >> email;
+                getline( cin, email );
                 break;
             case 0:
                 break;
@@ -91,4 +93,8 @@ int Estudiante::mostrarOpciones(){
     cin >> opc;
     cout << endl;
     return opc;
+}
+
+void Estudiante::setId( int id ){
+    this->id = id;
 }

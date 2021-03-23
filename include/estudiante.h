@@ -1,6 +1,11 @@
 #ifndef ESTUDIANTE_H
 #define ESTUDIANTE_H
 
+#ifndef EMPTY_ID
+#define EMPTY_ID
+static constexpr int empty_id = -1;
+#endif
+
 #include <iostream>
 using std::cin;
 using std::cout;
@@ -11,17 +16,19 @@ class Estudiante{
     private:
         string nombre;
         int id;
-        int celular;
+        string celular;
         string email;
 
     public:
+        Estudiante();
         Estudiante( int );
-        Estudiante( string, int, int, string );
+        Estudiante( string, int, string, string );
         void llenarEstudiante();
         void mostrarEstudiante();
         int getId();
         void modificarEstudiante();
         int mostrarOpciones();
-}
+        void setId( int );
+};
 
 #endif
