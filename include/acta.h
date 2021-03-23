@@ -10,20 +10,21 @@ using std::list;
 using std::cout;
 using std::cin;
 using std::endl;
+using std::string;
 
 constexpr int max_words_obsfinal = 200;
 
-enum class Tipo: string
+enum class Tipo
 {
     Aplicado, Investigacion
 };
 
-enum class Aprobacion: string
+enum class Aprobacion
 {
     Aprobado, Pendiente, Reprobado
 };
 
-enum class Diligencia: string
+enum class Diligencia
 {
     Abierto, Cerrado
 };
@@ -36,9 +37,9 @@ private:
     std::string fecha, titulo, periodo, obsFinales;
     Estudiante autor;
     Colaborador director, codirector, jurado1, jurado2;
-    enum class Tipo tipo;
-    enum class Aprobacion aprobacion;
-    enum class Diligencia diligencia;
+    Tipo tipo;
+    Aprobacion aprobacion;
+    Diligencia diligencia;
     std::list<Criterio> listaCriterios;
     //std::list<DetalleCriterio> listaDetalleCrit;
 
@@ -46,11 +47,11 @@ public:
     Acta();
     Acta(int);
     void llenarActa();
-    void initCriterios(lista<Criterios>&);
-    Criterio& buscarCriterio(int);
+    void initCriterios(list<Criterio>&);
+    list<Criterio>::iterator buscarCriterio(int);
     void evaluarActa();
     void setEstudiante(Estudiante);
-    void setColaborador(Colaborador&);
+    void setColaborador(list<Colaborador>::iterator);
     void setColaborador(list<Colaborador>&);
     void setPeriodo();
     void setTitulo();

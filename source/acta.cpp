@@ -4,6 +4,7 @@
 
 Acta::Acta()
 {
+    this->id = empty_id;
     this->notaFinal = empty_grade;
     this->aprobacion = Aprobacion::Pendiente;
     this->diligencia = Diligencia::Abierto;
@@ -39,18 +40,18 @@ void Acta::llenarActa()
     } while( !opc );
 }
 
-void Acta::initCriterios(list<Criterios>& criterios)
+void Acta::initCriterios(list<Criterio>& criterios)
 {
     this->listaCriterios.splice(listaCriterios.begin(), criterios);
 }
 
-Criterio& Acta::buscarCriterio(int id)
+list<Criterio>::iterator Acta::buscarCriterio(int id)
 {
     for(list<Criterio>::iterator it = listaCriterios.begin(); it != listaCriterios.end(); it++)
     {
-        if(it->id == id) return *it;
+        if(it->getID() == id) return it;
     }
-    return *listaCriterios.end();
+    return listaCriterios.end();
 }
 
 void Acta::evaluarActa()
@@ -60,7 +61,7 @@ void Acta::evaluarActa()
     for(list<Criterio>::iterator it = listaCriterios.begin(); it != listaCriterios.end(); it++)
     {
         it->evaluarCriterio();
-        if(it->getNota() == empty_grade) num_criterio[pos++] = it->id;
+        if(it->getNota() == empty_grade) num_criterio[pos++] = it->getID();
     }
     if(pos >= 0 && pos < listaCriterios.size()){
         std::cout << "Faltaron por evaluar los siguientes criterios:\n";
@@ -77,7 +78,7 @@ void Acta::setEstudiante(Estudiante e)
     this->autor = e;
 }
 
-void Acta::setColaborador(Colaborador& c)
+void Acta::setColaborador(list<Colaborador>::iterator c)
 {
     int opc;
     do{
@@ -93,22 +94,22 @@ void Acta::setColaborador(Colaborador& c)
 
         switch(opc){
             case 1:
-                this->director = c;
-                c.setDirigidos( c.getDirigidos() + 1 );
+                this->director = *c;
+                c->setDirigidos( c->getDirigidos() + 1 );
                 break;
             case 2:
-                this->codirector = c;
-                c.setDirigidos( c.getDirigidos() + 1 );
+                this->codirector = *c;
+                c->setDirigidos( c->getDirigidos() + 1 );
                 break;
             case 3:
-                this->jurado1 = c;
-                c.setEvaluados( c.getEvaluados() + 1 );
-                c.addTrabajoEval( this->id, this->titulo );
+                this->jurado1 = *c;
+                c->setEvaluados( c->getEvaluados() + 1 );
+                c->addTrabajoEval( this->id, this->titulo );
                 break;
             case 4:
-                this->jurado2 = c;
-                c.setEvaluados( c.getEvaluados() + 1 );
-                c.addTrabajoEval( this->id, this->titulo );
+                this->jurado2 = *c;
+                c->setEvaluados( c->getEvaluados() + 1 );
+                c->addTrabajoEval( this->id, this->titulo );
                 break;
             case 0:
                 break;
@@ -120,7 +121,8 @@ void Acta::setColaborador(Colaborador& c)
 
 void Acta::setColaborador(list<Colaborador>& listaColab){
     int opc, op, idActual, idNuevo;
-    Colaborador& colabNuevo, colabActual;
+    list<Colaborador>::iterator colabNuevo;
+    list<Colaborador>::iterator colabActual;
     do{
         std::cout << "\nIngrese el puesto a reemplazar:\n";
         std::cout << "1. Director\n";
@@ -154,19 +156,23 @@ void Acta::setColaborador(list<Colaborador>& listaColab){
                     cin >> idNuevo;
                     for( list<Colaborador>::iterator it = listaColab.begin(); it != listaColab.end(); it++ ){
                         if( it->getId() == idNuevo ){ 
-                            colabNuevo = *it;
+                            colabNuevo = it;
                         }else if( it->getId() == idActual ){
-                            colabActual = *it;
+                            colabActual = it;
                         }
                     }
-                    if( id != colabNuevo.getId() ){
+                    if( id != colabNuevo->getId() ){
                         cout << "Colaborador nuevo no registrado\n";
                         cout << "Debe crearlo primero\n";
                         break;
                     }
-                    colabActual.setDirigidos( colabActual.getDirigidos() - 1 );
-                    colabNuevo.setDirigidos( colabNuevo.getDirigidos() + 1 );
-                    this->director = colabNuevo;
+                    colabActual->setDirigidos( colabActual->getDirigidos() - 1 );
+                    colabNuevo->setDirigidos( colabNuevo->getDirigidos() + 1 );
+                    if( opc == 1 ){
+                        this->director = *colabNuevo;
+                    }else{
+                        this->codirector = *colabNuevo;
+                    }
                 }
                 break;
             case 3:
@@ -190,21 +196,25 @@ void Acta::setColaborador(list<Colaborador>& listaColab){
                     cin >> idNuevo;
                     for( list<Colaborador>::iterator it = listaColab.begin(); it != listaColab.end(); it++ ){
                         if( it->getId() == idNuevo ){ 
-                            colabNuevo = *it;
+                            colabNuevo = it;
                         }else if( it->getId() == idActual ){
-                            colabActual = *it;
+                            colabActual = it;
                         }
                     }
-                    if( id != colabNuevo.getId() ){
+                    if( id != colabNuevo->getId() ){
                         cout << "Colaborador nuevo no registrado\n";
                         cout << "Debe crearlo primero\n";
                         break;
                     }
-                    colabActual.setEvaluados( colabActual.getEvaluados() - 1 );
-                    colabActual.deleteTrabajoEval( this->id, this->titulo );
-                    colabNuevo.setEvaluados( colabNuevo.getEvaluados() + 1 );
-                    colabNuevo.addTrabajoEval( this->id, this->titulo );
-                    this->director = colabNuevo;
+                    colabActual->setEvaluados( colabActual->getEvaluados() - 1 );
+                    colabActual->deleteTrabajoEval( this->id, this->titulo );
+                    colabNuevo->setEvaluados( colabNuevo->getEvaluados() + 1 );
+                    colabNuevo->addTrabajoEval( this->id, this->titulo );
+                    if( opc == 3 ){
+                        this->jurado1 = *colabNuevo;
+                    }else{
+                        this->jurado2 = *colabNuevo;
+                    }
                 }
                 break;
             case 0:
@@ -236,7 +246,7 @@ void Acta::setNotaFinal()
 {
     for(list<Criterio>::iterator it = listaCriterios.begin(); it != listaCriterios.end(); it++)
     {
-        this->notFinal += it->getNota();
+        this->notaFinal += it->getNota();
     }
 }
 
@@ -320,19 +330,24 @@ void Acta::mostrarActa()
     std::cout << "Fecha: " << this->fecha << std::endl;
     std::cout << "Periodo: " << this->periodo << std::endl;
     std::cout << "Titulo trabajo: " << this->titulo << std::endl;
-    std::cout << "Tipo trabajo: " << this->tipo << std::endl;
+    std::cout << "Tipo trabajo: ";
+    if( this->tipo == Tipo::Aplicado ){
+        cout << "Aplicado\n";
+    }else{
+        cout << "Investigacion\n";
+    }
 
     std::cout << "\nDATOS AUTOR\n";
-    this->autor.mostarEstudiante();
+    this->autor.mostrarEstudiante();
     
     std::cout << "\nDirector:\n";
-    this->director.mostarColaborador();
+    this->director.mostrarColaborador();
     std::cout << "\nCodirector:\n";
-    this->codirector.mostarColaborador();
+    this->codirector.mostrarColaborador();
     std::cout << "\nJurados:\n";
-    this->jurado1.mostarColaborador();
-    this->jurado2.mostarColaborador();
-
+    this->jurado1.mostrarColaborador();
+    this->jurado2.mostrarColaborador();
+    cout << endl;
     this->mostrarEstado();
 }
 
@@ -346,8 +361,20 @@ void Acta::setFecha(){
 }
 
 void Acta::mostrarEstado(){
-    cout << "Estado: " << aprobacion << endl;
-    cout << "Diligencia: " << diligencia << endl;
+    cout << "Estado: ";
+    if( this->aprobacion == Aprobacion::Aprobado ){
+        cout << "Aprobado\n";
+    }else if( this->aprobacion == Aprobacion::Pendiente ){
+        cout << "Pendiente\n";
+    }else{
+        cout << "Reprobado\n";
+    }
+    cout << "Diligencia: ";
+    if( this->diligencia == Diligencia::Abierto ){
+        cout << "Abierto\n";
+    }else{
+        cout << "Cerrado\n";
+    }
     cout << "Nota final: ";
     if( notaFinal == empty_grade ){
         cout << "Faltan criterios por evaluar" << endl;
