@@ -73,6 +73,8 @@ void Colaborador::llenarColaborador(){
         }
     }while( opc != 0 );
 
+    cout << "Id: " << this->id << endl;
+
     this->nombre = nombre;
     this->celular = celular;
     this->email = email;
