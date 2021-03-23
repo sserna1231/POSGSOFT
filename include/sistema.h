@@ -29,12 +29,13 @@ public:
     void addActa( Acta );
     void addEstudiante( Estudiante );
     void addColab( Colaborador );
-    Estudiante& buscarEstudiante( int );
-    Colaborador& buscarColab( int );
-    Acta& buscarActa( int );
-    list<Criterios>& getRefList();
+    list<Estudiante>::iterator buscarEstudiante( int );
+    list<Colaborador>::iterator buscarColab( int );
+    list<Acta>::iterator buscarActa( int );
+    list<Criterio>& getRefList(); //SERNA DEBE REVISAR SI ES NECESARIO USAR LA REFERENCIA
     int menuActa();
     void modificarActa();
+    void mostrarEstudiantes();
     void mostrarActas();
     void mostrarJurados();
     void mostrarCriterios();
@@ -47,6 +48,13 @@ public:
     void setActasCreadas( int );
     void setEstudiantesCreados( int );
     void setColabsCreados( int );
+    int getListActasSize();
+    int getListColabSize();
+    int getListEstudianteSize();
+    list<Colaborador>::iterator getListColabBegin();
+    list<Colaborador>::iterator getListColabEnd();
+    list<Acta>::iterator getListActasBegin();
+    list<Acta>::iterator getListActasEnd();
 };
 
 #endif
