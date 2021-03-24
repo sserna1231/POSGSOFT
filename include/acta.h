@@ -65,6 +65,17 @@ public:
     string getTitulo();
     int getId();
     Tipo getTipo();
+    string getFecha();
+    Estudiante getAutor();
+    string getPeriodo();
+    Colaborador getDirector();
+    Colaborador getCodirector();
+    Colaborador getJurado1();
+    Colaborador getJurado2();
+    list<Criterio>::iterator getCriteriosBegin();
+    list<Criterio>::iterator getCriteriosEnd();
+    string getObsFinal();
+    float getNotaFinal();
     //void guardarActa();
     void mostrarActa();
     void mostrarEstado();

@@ -52,6 +52,10 @@ int Estudiante::getId(){
     return this->id;
 }
 
+string Estudiante::getNombre(){
+    return this->nombre;
+}
+
 void Estudiante::modificarEstudiante(){
     string nombre, email, celular;
     int opc;

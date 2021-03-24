@@ -128,8 +128,16 @@ int main(){
                 pActa->setDiligencia();
                 break;
             case 6:
-                //*************************************************************************
-                cout << "NO IMPLEMENTADO\n";
+                cout << "Ingrese el id del acta: ";
+                cin >> id;
+                cout << endl;
+                pActa = Javeriana.buscarActa( id );
+                if( pActa == Javeriana.getListActasEnd() ){
+                    cout << "Acta no registrado\n";
+                    cout << "Debe crearla primero\n";
+                    break;
+                }
+                Javeriana.guardarActa(pActa);
                 break;
             case 7:
                 Javeriana.mostrarActas();

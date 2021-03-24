@@ -378,3 +378,71 @@ list<Estudiante>::iterator Sistema::getListEstudianteEnd(){
 list<Criterio>::iterator Sistema::getListCriteriosEnd(){
     return this->listaCriterios.end();
 }
+
+void Sistema::guardarActa(list<Acta>::iterator acta)
+{
+    ofstream fs;
+    Estudiante est = acta->getAutor();
+    Colaborador dir = acta->getDirector();
+    Colaborador codir = acta->getCodirector();
+    Colaborador jur1 = acta->getJurado1();
+    Colaborador jur2 = acta->getJurado2();
+    Evaluacion notaj1, notaj2;
+    list<Criterio>::iterator it = acta->getCriteriosBegin();
+
+    string path = ".\\Actas\\Acta-" + std::to_string(acta->getId()) + ".txt";
+    fs.open(path);
+
+    if(!fs.is_open()){
+        cout << "Error abriendo el archivo.\n";
+        return;
+    }
+
+    fs << "=======================================================================\n";
+    fs << "PONTIFICIA UNIVERSIDAD JAVERIANA CALI\n\nFACULTAD DE INGENIERÍA\n";
+    fs << "Maestría en Ingeniería\n\n";
+    fs << "-----------------------------------------------------------------------\n";
+    fs << "ACTA ID: " << acta->getId() << "\tFecha: " << acta->getFecha() << endl;
+    fs << "ACTA DE EVALUACIÓN DE TRABAJO DE GRADO\n\n";
+    fs << "Trabajo de grado denominado: " << acta->getTitulo() << endl;
+    fs << "Autor: " << est.getNombre() << "\tID: " << est.getId() << endl;
+    fs << "Periodo: " << acta->getPeriodo() << endl;
+    fs << "Director: " << dir.getNombre() << endl;
+    fs << "Codirector: " << codir.getNombre() << endl;
+    fs << "Modalidad: "; acta->getTipo() == Tipo::Aplicado ? cout << "Aplicado\n": cout << "Investigacion\n";
+    fs << "Jurado 1: " << jur1.getNombre() << endl;
+    fs << "Jurado 2: " << jur2.getNombre() << endl;
+    fs << "En atención al desarrollo de este Trabajo de Grado y al documento y sustentación que presentó ";
+    fs << "el(la) autor(a),los Jurados damos las siguientes calificaciones parciales y observaciones (los ";
+    fs << "criterios a evaluar y sus ponderaciones se estipulan en el artículo 7.1 de las Directrices para ";
+    fs << "Trabajo de Grado de Maestría):\n\n";
+
+    for(; it != acta->getCriteriosEnd(); it++){
+        notaj1 = it->getNotaJ1(); 
+        notaj2 = it->getNotaJ2();
+    fs << it->getID() << ". " << it->getDescripcion() << ':' << endl;
+    fs << "Calificacion parcia: " << it->getNota() << "\t\tPonderacion: " << it->getPonderacion() << endl;
+    fs << "Observaciones: " << notaj1.comentario << endl << notaj2.comentario << endl;
+    fs << "_______________________________________________________________________\n";
+    fs << "_______________________________________________________________________\n";
+    fs << "_______________________________________________________________________\n";
+    fs << endl << endl;
+    }
+
+    fs << "Como resultado de estas calificaciones parciales y sus ponderaciones, la calificación del Trabajo "; 
+    fs << "de Grado es: " << acta->getNotaFinal() << endl << endl;
+    fs << "Observaciones Finales: " << acta->getObsFinal() << endl;
+    fs << "_______________________________________________________________________\n";
+    fs << "_______________________________________________________________________\n";
+    fs << "_______________________________________________________________________\n";
+    fs << endl << endl;
+    if(acta->getAprobacion() == Aprobacion::Reprobado) fs << "Estado: Reprobado\n\n"; 
+    else if(acta->getAprobacion() == Aprobacion::Pendiente) fs << "Estado: Pendiente\n\n";
+    else fs << "Estado: Aprobado\n\n";
+    fs << "-----------------------------------------------------------------------\n\n\n";
+    fs << "Firma Jurado 1: ___________________________________________\n";
+    fs << "Firma Jurado 2: ___________________________________________\n";
+    fs << endl << endl;
+    fs << "=======================================================================";
+    fs.close();
+}

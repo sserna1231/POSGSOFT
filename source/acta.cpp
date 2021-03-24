@@ -403,6 +403,51 @@ Tipo Acta::getTipo(){
     return this->tipo;
 }
 
+string Acta::getFecha()
+{
+    return this->fecha;
+}
+
+Estudiante Acta::getAutor(){
+    return this->autor;
+}
+
+string Acta::getPeriodo(){
+    return this->periodo;
+}
+
+Colaborador Acta::getDirector(){
+    return this->director;
+}
+
+Colaborador Acta::getCodirector(){
+    return this->codirector;
+}
+
+Colaborador Acta::getJurado1(){
+    return this->jurado1;
+}
+
+Colaborador Acta::getJurado2(){
+    return this->jurado2;
+}
+
+list<Criterio>::iterator Acta::getCriteriosBegin(){
+    return this->listaCriterios.begin();
+}
+
+list<Criterio>::iterator Acta::getCriteriosEnd(){
+    return this->listaCriterios.end();
+}
+
+string Acta::getObsFinal(){
+    return this->obsFinales;
+}
+
+float Acta::getNotaFinal(){
+    return this->notaFinal;
+}
+
 void Acta::mostrarActa()
 {
     std::cout << "\n===============================\n";

@@ -161,9 +161,26 @@ float Criterio::getNota()
     return this->nota;
 }
 
+float Criterio::getPonderacion()
+{
+    return this->ponderacion;
+}
+
 int Criterio::getID()
 {
     return this->id;
+}
+
+Evaluacion Criterio::getNotaJ1(){
+    return this->notaj1;
+}
+
+Evaluacion Criterio::getNotaJ2(){
+    return this->notaj2;
+}
+
+std::string Criterio::getDescripcion(){
+    return this->descripcion;
 }
 
 void Criterio::setId( int id ){

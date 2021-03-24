@@ -1,6 +1,7 @@
 #ifndef SISTEMA_H
 #define SISTEMA_H
 
+#include <fstream>
 #include <list>
 #include <string>
 #include "acta.h"
@@ -12,6 +13,7 @@ using std::list;
 using std::cout;
 using std::cin;
 using std::endl;
+using std::ofstream;
 using std::string;
 
 class Sistema
@@ -61,6 +63,7 @@ public:
     list<Acta>::iterator getListActasEnd();
     list<Estudiante>::iterator getListEstudianteEnd();
     list<Criterio>::iterator getListCriteriosEnd();
+    void guardarActa(list<Acta>::iterator);
 };
 
 #endif

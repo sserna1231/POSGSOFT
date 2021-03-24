@@ -35,8 +35,12 @@ public:
     void setNotaJ2();
     void setNota();
     int getID();
+    std::string getDescripcion();
     void setId( int );
     float getNota();
+    Evaluacion getNotaJ1();
+    Evaluacion getNotaJ2();
+    float getPonderacion();
     void mostrarCriterio();
 };
 

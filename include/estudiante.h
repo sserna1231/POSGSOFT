@@ -26,6 +26,7 @@ class Estudiante{
         void llenarEstudiante();
         void mostrarEstudiante();
         int getId();
+        string getNombre();
         void modificarEstudiante();
         int mostrarOpciones();
         void setId( int );
