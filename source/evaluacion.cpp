@@ -52,20 +52,25 @@ int Criterio::menuModificables(){
 void Criterio::evaluarCriterio()
 {
     int numJurado;
-    std::cout << "Inserte N° Jurado: " << std::endl;
-    std::cin >> numJurado;
-
-    switch(numJurado){
-        case 1:
-            setNotaJ1();
-            break;
-        case 2:
-            setNotaJ2();
-            break;
-        default:
-            std::cout << "N° Jurado invalido.\nIntente de nuevo\n\n";
-    }
-    setNota();
+    do{
+        std::cout << "Inserte # Jurado. Para dejar de evaluar este criterio, digite '0'.\n";
+        std::cout << "> ";
+        std::cin >> numJurado;
+        switch(numJurado){
+            case 1:
+                setNotaJ1();
+                break;
+            case 2:
+                setNotaJ2();
+                break;
+            case 0: 
+                std::cout << "Evaluacion detenida.\n";
+                break;
+            default:
+                std::cout << "# Jurado invalido.\nIntente de nuevo\n\n";
+        }
+    } while(numJurado != 0);
+    this->setNota();
 }
 
 /*Para nuestra aplicación, asumiremos que la relación entre el número de palabras
@@ -76,7 +81,8 @@ void Criterio::setNotaJ1()
 {
     float grade;
     do{
-        std::cout << "Inserte la calificacion para este criterio: ";
+        std::cout << "Inserte la calificacion para el criterio:\n";
+        std::cout << "'" << this->descripcion << "'\n> ";
         std::cin >> grade;
         if(grade < min_grade || grade > max_grade) std::cout << "Nota invalida\n";
     } while(grade < min_grade || grade > max_grade);
@@ -87,13 +93,14 @@ void Criterio::setNotaJ1()
     std::cout << "Desea comentar el acta respecto a este criterio?\n";
     std::cout << "Inserte 's' o 'n' para afirmar o denegar, respectivamente.\n\n";
     std::cout << "> ";
+    std::cin.ignore();
     std::cin.get(comentar);
 
     int numWords;
     if(comentar == 's'){
         do{
             std::cout << "Inserte comentario [max. 50 palabras]:\n";
-            getline(std::cin >> std::ws, this->notaj1.comentario);
+            std::getline(std::cin >> std::ws, this->notaj1.comentario);
             numWords = countWords(notaj1.comentario);
             if(numWords > 50) 
                 std::cout << "Numero sobrepasado de palabras.\n";
@@ -105,7 +112,8 @@ void Criterio::setNotaJ2()
 {
     float grade;
     do{
-        std::cout << "Inserte la calificacion para este criterio: ";
+        std::cout << "Inserte la calificacion para el criterio:\n";
+        std::cout << "'" << this->descripcion << "'\n> ";
         std::cin >> grade;
         if(grade < min_grade || grade > max_grade) std::cout << "Nota invalida\n";
     } while(grade < min_grade || grade > max_grade);
@@ -116,14 +124,15 @@ void Criterio::setNotaJ2()
     std::cout << "Desea comentar el acta respecto a este criterio?\n";
     std::cout << "Inserte 's' o 'n' para afirmar o denegar, respectivamente.\n\n";
     std::cout << "> ";
+    std::cin.ignore();
     std::cin.get(comentar);
 
     int numWords;
     if(comentar == 's'){
         do{
             std::cout << "Inserte comentario [max. 50 palabras]:\n";
-            getline(std::cin >> std::ws, this->notaj2.comentario);
-            numWords = countWords(notaj1.comentario);
+            std::getline(std::cin >> std::ws, this->notaj2.comentario);
+            numWords = countWords(notaj2.comentario);
             if(numWords > 50) 
                 std::cout << "Numero sobrepasado de palabras.\n";
         } while(numWords > 50);
