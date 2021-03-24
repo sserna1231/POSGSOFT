@@ -253,7 +253,7 @@ int Colaborador::mostrarOpciones(){
 void Colaborador::mostrarTrabajosEval(){
     list<tuple<int, string>>::iterator it;
     for( it = trabajos.begin(); it != trabajos.end(); it++ ){
-        cout << "Id: " << std::get<0>( *it ) << "\tTitulo: " << std::get<1>( *it ) << endl;
+        cout << "Id Acta: " << std::get<0>( *it ) << "\tTitulo: " << std::get<1>( *it ) << endl;
     }
     cout << endl;
 }
