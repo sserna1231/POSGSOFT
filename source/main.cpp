@@ -20,7 +20,7 @@ int main(){
         cout << "11. Consultar # trabajos dirigidos por colaborador\n";
         cout << "12. Consultar # trabajos evaluados por colaborador\n";
         cout << "13. Consultar trabajos evaluados por colaborador\n";
-        cout << "14. Mostrar Jurados\n";
+        cout << "14. Mostrar Colaboradores\n";
         cout << "15. Mostrar actas pendientes & reprobadas\n";
         cout << "16. Crear Colaborador\n";
         cout << "17. Crear Estudiante\n";
@@ -68,8 +68,9 @@ int main(){
                     cout << "Desea anadir un colaborador?\n";
                     cout << "1. Si\n";
                     cout << "0. No\n";
-                    cout << "> ";
+                    cout << "> "; 
                     cin >> op;
+                    cout << endl;
                     if( op == 1 ){
                         cout << "Ingrese el id del colaborador: ";
                         cin >> id;
@@ -84,6 +85,7 @@ int main(){
                     }
                 }while( op != 0 );
                 cout << "\nId: " << acta.getId() << endl;
+                acta.initCriterios(Javeriana.getRefList());
                 Javeriana.addActa( acta );
                 break;
             case 2:
