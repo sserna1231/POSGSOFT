@@ -34,7 +34,7 @@ public:
     list<Colaborador>::iterator buscarColab( int );
     list<Acta>::iterator buscarActa( int );
     list<Criterio>::iterator buscarCriterio( int );
-    list<Criterio>& getRefList(); //SERNA DEBE REVISAR SI ES NECESARIO USAR LA REFERENCIA
+    list<Criterio>& getRefList();
     int menuActa();
     void modificarActa();
     void mostrarEstudiantes();

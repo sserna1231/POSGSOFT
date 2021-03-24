@@ -121,7 +121,7 @@ void Sistema::modificarActa()
             default:
                 std::cout << "Opcion invalida.\n\n";
         }
-    } while( !opc );
+    } while( opc != 0 );
 }
 
 void Sistema::addActa( Acta acta ){
